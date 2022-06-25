@@ -11,25 +11,15 @@ func NewTelephoneNumbersTree() *TelephoneNumbersTree {
 
 func (tree *TelephoneNumbersTree) RegisterTelephoneNumber(telephoneNumber string) {
 	insertionPoint := tree.findInsertionPoint(telephoneNumber)
-
-	previousNode := insertionPoint.node
-	var currentNode *TreeNode
-
-	for numberIndex := insertionPoint.numberIndex; numberIndex < len(telephoneNumber); numberIndex++ {
-		currentValue := int(telephoneNumber[numberIndex])
-		currentNode = previousNode.addChildWithValue(currentValue)
-		tree.size++
-
-		previousNode = currentNode
-	}
+	tree.insertRemainingNumbers(insertionPoint, telephoneNumber)
 }
 
-type InsertionPoint struct {
+type insertionPoint struct {
 	numberIndex int
 	node        *TreeNode
 }
 
-func (tree *TelephoneNumbersTree) findInsertionPoint(telephoneNumber string) *InsertionPoint {
+func (tree *TelephoneNumbersTree) findInsertionPoint(telephoneNumber string) *insertionPoint {
 	currentNode := tree.rootNode
 
 	numberIndex := 0
@@ -42,7 +32,20 @@ func (tree *TelephoneNumbersTree) findInsertionPoint(telephoneNumber string) *In
 		currentNode = childNode
 	}
 
-	return &InsertionPoint{numberIndex: numberIndex, node: currentNode}
+	return &insertionPoint{numberIndex: numberIndex, node: currentNode}
+}
+
+func (tree *TelephoneNumbersTree) insertRemainingNumbers(insertionPoint *insertionPoint, telephoneNumber string) {
+	previousNode := insertionPoint.node
+	var currentNode *TreeNode
+
+	for numberIndex := insertionPoint.numberIndex; numberIndex < len(telephoneNumber); numberIndex++ {
+		currentValue := int(telephoneNumber[numberIndex])
+		currentNode = previousNode.addChildWithValue(currentValue)
+		tree.size++
+
+		previousNode = currentNode
+	}
 }
 
 func (tree *TelephoneNumbersTree) Size() int {
