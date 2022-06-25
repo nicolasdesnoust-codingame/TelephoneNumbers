@@ -16,7 +16,7 @@ func TestTelephoneNumberTree_ShouldReturnSizeOfZeroWhenInitialized(t *testing.T)
 
 func TestTelephoneNumberTree_ShouldReturnSizeOfOneRegisteredTelephoneNumber(t *testing.T) {
 	tree := NewTelephoneNumbersTree()
-	tree.RegisterTelephoneNumber("0657839210")
+	tree.RegisterTelephoneNumber(NewTelephoneNumber("0657839210"))
 
 	actualSize := tree.Size()
 
@@ -26,8 +26,8 @@ func TestTelephoneNumberTree_ShouldReturnSizeOfOneRegisteredTelephoneNumber(t *t
 
 func TestTelephoneNumberTree_ShouldReturnSizeOfMultipleRegisteredTelephoneNumberThatAreIndependent(t *testing.T) {
 	tree := NewTelephoneNumbersTree()
-	tree.RegisterTelephoneNumber("0657839210")
-	tree.RegisterTelephoneNumber("3657839210")
+	tree.RegisterTelephoneNumber(NewTelephoneNumber("0657839210"))
+	tree.RegisterTelephoneNumber(NewTelephoneNumber("3657839210"))
 
 	actualSize := tree.Size()
 
@@ -38,8 +38,8 @@ func TestTelephoneNumberTree_ShouldReturnSizeOfMultipleRegisteredTelephoneNumber
 func TestTelephoneNumberTree_ShouldReturnSizeOfMultipleRegisteredTelephoneNumberThatShareACommonPrefix(t *testing.T) {
 	tree := NewTelephoneNumbersTree()
 	commonPrefix := "065783"
-	tree.RegisterTelephoneNumber(commonPrefix + "9210")
-	tree.RegisterTelephoneNumber(commonPrefix + "5431")
+	tree.RegisterTelephoneNumber(NewTelephoneNumber(commonPrefix + "9210"))
+	tree.RegisterTelephoneNumber(NewTelephoneNumber(commonPrefix + "5431"))
 
 	actualSize := tree.Size()
 

@@ -4,10 +4,11 @@ import (
 	"telephonenumbers/domain"
 )
 
-func FindMinimumNumberCountUsecase(telephoneNumbers []string) int {
-
+func FindMinimumNumberCountUsecase(rawTelephoneNumbers []string) int {
 	tree := domain.NewTelephoneNumbersTree()
-	for _, telephoneNumber := range telephoneNumbers {
+
+	for _, rawTelephoneNumber := range rawTelephoneNumbers {
+		telephoneNumber := domain.NewTelephoneNumber(rawTelephoneNumber)
 		tree.RegisterTelephoneNumber(telephoneNumber)
 	}
 
